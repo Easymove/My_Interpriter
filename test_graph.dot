@@ -1,0 +1,98 @@
+// resulting tree
+digraph {
+	0 [label=program]
+	1 [label=procedure_id]
+	2 [label="id: 1001"]
+	3 [label=block]
+	4 [label=declarations]
+	5 [label=const_declarations]
+	6 [label=const_declarations_list]
+	7 [label=const_declaration]
+	8 [label=var_id]
+	9 [label="id: 1002"]
+	10 [label="const: 501"]
+	11 [label=const_declarations_list]
+	12 [label=const_declaration]
+	13 [label=var_id]
+	14 [label="id: 1003"]
+	15 [label="const: 502"]
+	16 [label=const_declarations_list]
+	17 [label=statement_list]
+	18 [label=statement]
+	19 [label=var_id]
+	20 [label="id: 1002"]
+	21 [label="const: 45 503"]
+	22 [label=statement_list]
+	23 [label=statement]
+	24 [label=var_id]
+	25 [label="id: 1003"]
+	26 [label="const: 501"]
+	27 [label=statement_list]
+	28 [label=statement]
+	29 [label=var_id]
+	30 [label="id: 1004"]
+	31 [label="const: 45 504"]
+	32 [label=statement_list]
+	33 [label=statement]
+	34 [label=var_id]
+	35 [label="id: 1005"]
+	36 [label="const: 505"]
+	37 [label=statement_list]
+	38 [label=statement]
+	39 [label=var_id]
+	40 [label="id: 1006"]
+	41 [label="const: 506"]
+	42 [label=statement_list]
+	43 [label=statement]
+	44 [label=var_id]
+	45 [label="id: 1007"]
+	46 [label="const: 45 507"]
+	47 [label=statement_list]
+		0 -> 1
+		1 -> 2
+		0 -> 3
+		3 -> 4
+		4 -> 5
+		5 -> 6
+		6 -> 7
+		7 -> 8
+		8 -> 9
+		7 -> 10
+		6 -> 11
+		11 -> 12
+		12 -> 13
+		13 -> 14
+		12 -> 15
+		11 -> 16
+		3 -> 17
+		17 -> 18
+		18 -> 19
+		19 -> 20
+		18 -> 21
+		17 -> 22
+		22 -> 23
+		23 -> 24
+		24 -> 25
+		23 -> 26
+		22 -> 27
+		27 -> 28
+		28 -> 29
+		29 -> 30
+		28 -> 31
+		27 -> 32
+		32 -> 33
+		33 -> 34
+		34 -> 35
+		33 -> 36
+		32 -> 37
+		37 -> 38
+		38 -> 39
+		39 -> 40
+		38 -> 41
+		37 -> 42
+		42 -> 43
+		43 -> 44
+		44 -> 45
+		43 -> 46
+		42 -> 47
+}
