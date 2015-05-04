@@ -1,7 +1,7 @@
 __author__ = 'Alex'
 
 from graphviz import Digraph
-import commands
+
 
 class Node(object):
 
@@ -12,7 +12,7 @@ class Node(object):
         self.numb = None
 
 
-class ParsedProgram(object):
+class ProgramInfo(object):
 
     def __init__(self, tokens, user_vars, user_consts, rwords, delimiters, m_delimiters, whitespace):
         self.tokens = tokens
@@ -24,7 +24,7 @@ class ParsedProgram(object):
         self.whitespace = whitespace
         self.tree = None
 
-    def get(self, name):
+    def get_delim_rword_code(self, name):
         res = None
         if name.upper() in self.rwords.keys():
             res = self.rwords[name.upper()]
@@ -33,6 +33,21 @@ class ParsedProgram(object):
         elif name.upper() in self.m_delimiters.keys():
             res = self.m_delimiters[name.upper()]
         return res
+
+    def get_const(self, code):
+        for i in self.user_consts.keys():
+            if self.user_consts[i] == code:
+                return i
+        return 0
+
+    def get_var(self, code):
+        for i in self.user_vars.keys():
+            if self.user_vars[i] == code:
+                return i
+        return 0
+
+    def set_tree(self, tree):
+        self.tree = tree
 
     def print_tables(self):
         print('__________ RWORDS __________________')

@@ -7,7 +7,7 @@ def lexer(path):
     lexems = []
     whitespace = {'\t': 9, '\n': 10, '\r': 13, ' ': 32, '\x0b': 11}
     rwords = {'PROGRAM': 401, 'BEGIN': 402, 'END': 403, 'CONST': 404}
-    delimiters = {';': 59, '+': 43, '-': 45, '*': 42, '/': 47, '=': 61,  ':': 58, '.': 46}
+    delimiters = {';': 59, '+': 43, '*': 42, '/': 47, '=': 61,  ':': 58, '.': 46}
     m_delimiters = {':=': 301}
     user_vars = {}
     user_consts = {}
@@ -43,7 +43,7 @@ def lexer(path):
             inline_pos += tmp_id_info[2]
             i = tmp_id_info[1]
 
-        elif ord(cur_char) in range(ord('0'), ord('9')):
+        elif cur_char == '-' or ord(cur_char) in range(ord('0'), ord('9')):
             tmp_dig_info = parse_digit(program_text, i)
             if not tmp_dig_info[0] in user_consts.keys():
                 tmp_id = gen_id(user_consts, 501)
@@ -79,7 +79,7 @@ def lexer(path):
             i += 1
             inline_pos += 1
 
-    return ParsedProgram(lexems, user_vars, user_consts, rwords, delimiters, m_delimiters, whitespace)
+    return ProgramInfo(lexems, user_vars, user_consts, rwords, delimiters, m_delimiters, whitespace)
 
 
 

@@ -1,10 +1,12 @@
 __author__ = 'Alex'
 
-from lexer import *
+from utils import *
 
 
 def parser(prog_info):
-    return program(prog_info)
+    res = prog_info;
+    res.tree = program(prog_info)
+    return res
 
 
 def program(prog):
@@ -13,7 +15,7 @@ def program(prog):
     for cp in stack:
         if isinstance(cp, basestring):
             if len(prog.tokens) > 0:
-                if prog.get(cp) == prog.tokens[0].code:
+                if prog.get_delim_rword_code(cp) == prog.tokens[0].code:
                     prog.tokens = prog.tokens[1:]
                     pass
                 else:
@@ -46,7 +48,7 @@ def var_id(prog):
 def id(prog):
     if len(prog.tokens) > 0:
         if prog.tokens[0].code < 1000:
-            raise Exception("id expected; line {1}, column{2} ".format(prog.tokens[0].line, prog.tokens[0].column))
+            raise Exception("id expected; line: {0}, column: {1} ".format(prog.tokens[0].line, prog.tokens[0].column))
     else:
         raise Exception("Identifier expected;")
     res_token = prog.tokens[0]
@@ -55,18 +57,14 @@ def id(prog):
 
 
 def const(prog):
-    res_tokens = []
     if len(prog.tokens) > 0:
-        if prog.tokens[0].code == 45:
-            res_tokens.append(prog.tokens[0].code)
-            prog.tokens = prog.tokens[1:]
         if not (500 < prog.tokens[0].code < 1001):
-            raise Exception("const expected; line {1}, column{2} ".format(prog.tokens[0].line, prog.tokens[0].column))
+            raise Exception("const expected; line: {0}, column: {1} ".format(prog.tokens[0].line, prog.tokens[0].column))
     else:
         raise Exception("Constant expected;")
-    res_tokens.append(prog.tokens[0].code)
+    res_token = prog.tokens[0].code
     prog.tokens = prog.tokens[1:]
-    return Node("const", res_tokens)
+    return Node("const", res_token)
 
 
 def block(prog):
@@ -75,7 +73,7 @@ def block(prog):
     for cp in stack:
         if isinstance(cp, basestring):
             if len(prog.tokens) > 0:
-                if prog.get(cp) == prog.tokens[0].code:
+                if prog.get_delim_rword_code(cp) == prog.tokens[0].code:
                     prog.tokens = prog.tokens[1:]
                     pass
                 else:
@@ -100,7 +98,7 @@ def const_declarations(prog):
     for cp in stack:
         if isinstance(cp, basestring):
             if len(prog.tokens) > 0:
-                if prog.get(cp) == prog.tokens[0].code:
+                if prog.get_delim_rword_code(cp) == prog.tokens[0].code:
                     prog.tokens = prog.tokens[1:]
                     pass
                 else:
@@ -128,7 +126,7 @@ def const_declaration(prog):
     for cp in stack:
         if isinstance(cp, basestring):
             if len(prog.tokens) > 0:
-                if prog.get(cp) == prog.tokens[0].code:
+                if prog.get_delim_rword_code(cp) == prog.tokens[0].code:
                     prog.tokens = prog.tokens[1:]
                     pass
                 else:
@@ -156,7 +154,7 @@ def statement(prog):
     for cp in stack:
         if isinstance(cp, basestring):
             if len(prog.tokens) > 0:
-                if prog.get(cp) == prog.tokens[0].code:
+                if prog.get_delim_rword_code(cp) == prog.tokens[0].code:
                     prog.tokens = prog.tokens[1:]
                     pass
                 else:
@@ -166,6 +164,3 @@ def statement(prog):
         else:
             res.children.append(cp(prog))
     return res
-
-tree = parser(lexer('test.txt'))
-to_dot(tree, "test_graph.dot")
